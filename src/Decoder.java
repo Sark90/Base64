@@ -1,7 +1,15 @@
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Base64;
 
 public abstract class Decoder {
-    public static byte[] decode(String s) {
-        return Base64.getDecoder().decode(s);
+    public static void decode(String encoded, String outFile) {
+        byte[] bytes = Base64.getDecoder().decode(encoded);
+        try(FileOutputStream fos = new FileOutputStream(outFile)) {
+            fos.write(bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
